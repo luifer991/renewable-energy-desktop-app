@@ -1,11 +1,16 @@
 package com.renewal.energies.controlador;
 
+import com.renewal.energies.util.ConeccionBD;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EnergiasController {
     @FXML
@@ -50,4 +55,30 @@ public class EnergiasController {
         //asignar el icono al boton
         btn.setGraphic( setIcon );
     }
+    
+    @FXML
+    protected void crearRegistrp () {
+    
+    }
+    
+    // Método para obtener la información de la base de datos
+    private String obtenerInformacionDeBaseDeDatos () {
+        String resultado = "";
+        String query = "SELECT frase FROM frases ORDER BY RANDOM() LIMIT 1"; // Ajusta la consulta según tu necesidad
+        
+        try ( Connection conn = ConeccionBD.connect();
+              PreparedStatement pstmt = conn.prepareStatement( query );
+              ResultSet rs = pstmt.executeQuery() ) {
+            
+            // Si hay un resultado, obtenemos el nombre del cliente
+            if ( rs.next() ) {
+                resultado = rs.getString( "frase" );
+            }
+        } catch ( SQLException e ) {
+            System.out.println( "Error en la consulta: " + e.getMessage() );
+        }
+        
+        return resultado;
+    }
+    
 }
