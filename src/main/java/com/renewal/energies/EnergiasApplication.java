@@ -15,8 +15,9 @@ public class EnergiasApplication extends Application {
     @Override
     public void start ( Stage stage ) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader( EnergiasApplication.class.getResource( "energias.fxml" ) );
-        Scene scene = new Scene( fxmlLoader.load(), 800, 800 );
+        Scene scene = new Scene( fxmlLoader.load(), 800, 600 );
         stage.setTitle( "Energias Renovables" );
+        stage.getIcons().add( new Image( "/energia.png" ) );
         stage.setScene( scene );
         stage.show();
     }

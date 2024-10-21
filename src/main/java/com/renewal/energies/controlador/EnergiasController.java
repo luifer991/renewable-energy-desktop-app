@@ -30,8 +30,6 @@ public class EnergiasController {
 //    }
 //
     private void agregarIcono () {
-        // Cargar la imagen del ícono
-//        URL guardarIcon = getClass().getResource( "/guardar.png" );
         icono( "/guardar.png", btnGuardar );
         icono( "/buscar.png", btnBuscar );
         icono( "/limpiar.png", btnLimpiar );
@@ -44,7 +42,6 @@ public class EnergiasController {
         URL getIcon = getClass().getResource( icon );
         // covertilo a imagen
         Image getImage = new Image( getIcon.toExternalForm() );
-        
         // Crear el ImageView con la imagen y establecer su tamaño
         ImageView setIcon = new ImageView( getImage );
         setIcon.setFitWidth( 20 );  // Aumentamos el tamaño a 20x20

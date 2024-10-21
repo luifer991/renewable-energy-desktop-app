@@ -23,7 +23,7 @@
               </columns>
             </TableView>
             <Separator layoutY="104.0" prefHeight="2.0" prefWidth="800.0" />
-            <Label layoutX="206.0" layoutY="21.0" text="Energias Renovables">
+            <Label layoutX="206.0" layoutY="21.0" text="Energías Renovables">
                <font>
                   <Font size="45.0" />
                </font>
