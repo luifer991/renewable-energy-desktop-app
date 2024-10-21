@@ -2,7 +2,6 @@ package com.renewal.energies.controlador;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,38 +9,48 @@ import java.net.URL;
 
 public class EnergiasController {
     @FXML
-    private Label welcomeText;
-    @FXML
     private Button btnGuardar;
+    @FXML
+    private Button btnLimpiar;
+    @FXML
+    private Button btnActualizar;
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private Button btnBuscar;
     
     @FXML
-    public void initialize() {
+    public void initialize () {
         agregarIcono();
     }
     
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    //    @FXML
+//    protected void onHelloButtonClick () {
+//        welcomeText.setText( "Welcome to JavaFX Application!" );
+//    }
+//
+    private void agregarIcono () {
+        // Cargar la imagen del ícono
+//        URL guardarIcon = getClass().getResource( "/guardar.png" );
+        icono( "/guardar.png", btnGuardar );
+        icono( "/buscar.png", btnBuscar );
+        icono( "/limpiar.png", btnLimpiar );
+        icono( "/actualizar.png", btnActualizar );
+        icono( "/eliminar.png", btnEliminar );
     }
     
-    private void agregarIcono() {
-        // Cargar la imagen del ícono
-        URL guardarIcon = getClass().getResource("/guardar.png");
-        if (guardarIcon == null) {
-            System.out.println("No se pudo encontrar el recurso");
-            return;
-        }
-        
-        // Crear la imagen con un tamaño más visible
-        Image icono = new Image(guardarIcon.toExternalForm());
+    public void icono ( String icon, Button btn ) {
+        // obtener el icono
+        URL getIcon = getClass().getResource( icon );
+        // covertilo a imagen
+        Image getImage = new Image( getIcon.toExternalForm() );
         
         // Crear el ImageView con la imagen y establecer su tamaño
-        ImageView imageView = new ImageView(icono);
-        imageView.setFitWidth(20);  // Aumentamos el tamaño a 30x30
-        imageView.setFitHeight(20);
-        imageView.setPreserveRatio(true);  // Mantener la proporción original del ícono
-        
-        // Asignar el ImageView al botón
-        btnGuardar.setGraphic(imageView);
+        ImageView setIcon = new ImageView( getImage );
+        setIcon.setFitWidth( 20 );  // Aumentamos el tamaño a 20x20
+        setIcon.setFitHeight( 20 );
+        setIcon.setPreserveRatio( true );  // Mantener la proporción original del ícono
+        //asignar el icono al boton
+        btn.setGraphic( setIcon );
     }
 }

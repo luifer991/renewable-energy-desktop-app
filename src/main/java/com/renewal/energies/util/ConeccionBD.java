@@ -22,7 +22,6 @@ public class ConeccionBD {
         } catch ( ClassNotFoundException e ) {
             System.out.println( "No se encontró el driver JDBC: " + e.getMessage() );
         }
-        
         return conn;
     }
 }
