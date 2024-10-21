@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.renewal.energies.controlador.EnergiasController">
+   <children>
+      <Pane prefHeight="607.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="50.0" layoutY="320.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar" />
+            <Button layoutX="50.0" layoutY="260.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Buscar" />
+            <Button fx:id="btnGuardar" layoutX="50.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Crear" />
+            <Button layoutX="50.0" layoutY="200.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Limpiar" textAlignment="CENTER" />
+            <Button layoutX="50.0" layoutY="380.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar" />
+            <TableView layoutX="206.0" layoutY="259.0" prefHeight="303.0" prefWidth="536.0">
+              <columns>
+                <TableColumn prefWidth="101.80001831054688" text="C1" />
+                <TableColumn prefWidth="122.20001220703125" text="C2" />
+                  <TableColumn prefWidth="103.39999389648438" text="C3" />
+                  <TableColumn minWidth="1.20001220703125" prefWidth="96.5999755859375" text="C4" />
+                  <TableColumn minWidth="0.0" prefWidth="113.20001220703125" text="C5" />
+              </columns>
+            </TableView>
+            <Separator layoutY="104.0" prefHeight="2.0" prefWidth="800.0" />
+            <Label layoutX="206.0" layoutY="21.0" text="Energias Renobables">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</VBox>
