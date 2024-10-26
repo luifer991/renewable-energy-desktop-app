@@ -15,4 +15,5 @@ module com.renewal.energies.renewalenergies {
     exports com.renewal.energies;
     exports com.renewal.energies.controlador;
     opens com.renewal.energies.controlador to javafx.fxml;
+    opens com.renewal.energies.clases to javafx.base;
 }
