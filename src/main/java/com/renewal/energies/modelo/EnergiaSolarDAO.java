@@ -19,9 +19,9 @@ public class EnergiaSolarDAO {
         }
     }
     
-    public void guardar ( BigDecimal rad, BigDecimal area, BigDecimal inc,
-                          String cod, int tipoEnergia, String ubi,
-                          BigDecimal cap, BigDecimal eficiencia, Date fecha ) throws SQLException {
+    public void guardarDatos ( BigDecimal rad, BigDecimal area, BigDecimal inc,
+                               String cod, int tipoEnergia, String ubi,
+                               BigDecimal cap, BigDecimal eficiencia, Date fecha ) throws SQLException {
         String query = "CALL insertar_energia_solar (?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement( query );
         ps.setBigDecimal( 1, rad );
@@ -54,6 +54,43 @@ public class EnergiaSolarDAO {
         ps.close();
     }
     
+    public void actualizarDatos ( int id, BigDecimal radiacion, BigDecimal area,
+                                 BigDecimal angulo, String codigo, int tipo, String ubicacion, BigDecimal capacidad,
+                                  BigDecimal eficiencia, Date fecha  ) throws SQLException {
+        
+        String query = "CALL actualizar_energia_solar (?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = connection.prepareStatement( query );
+        ps.setInt( 1, id );
+        ps.setBigDecimal( 2, radiacion );
+        ps.setBigDecimal( 3, area );
+        ps.setBigDecimal( 4, angulo );
+        ps.setString( 5, codigo );
+        ps.setInt( 6, tipo );
+        ps.setString( 7, ubicacion );
+        ps.setBigDecimal( 8, capacidad );
+        ps.setBigDecimal( 9, eficiencia );
+        ps.setDate( 10, fecha );
+        
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public void actualizarPais ( int Id, String pais, BigDecimal energia, BigDecimal covertura,
+                                 BigDecimal poblacion, int plantaproduccionid ) throws SQLException {
+        String query = "UPDATE pais" +
+                "SET nombre = ?, energiarequerida = ?, nivelcovertura = ?, poblacion = ?, plantaproduccionid = ?" +
+                "WHERE id = ?";
+        PreparedStatement ps = connection.prepareStatement( query );
+        ps.setString( 1, pais );
+        ps.setBigDecimal( 2, energia );
+        ps.setBigDecimal( 3, covertura );
+        ps.setBigDecimal( 4, poblacion );
+        ps.setInt( 5, plantaproduccionid );
+        
+        ps.executeUpdate();
+        ps.close();
+    }
+    
     public ObservableList <ResultadoBusqueda> obtenerDatos () throws SQLException {
         ObservableList <ResultadoBusqueda> data = FXCollections.observableArrayList();
         String query = "SELECT p.id, e.nombre as codigo, p.ubicacion, p.capacidadinstalada, p.eficiencia, " +
@@ -68,7 +105,7 @@ public class EnergiaSolarDAO {
                 "ON t.id = e.tipoenergiaid " +
                 "JOIN energiasolar s " +
                 "ON s.id = e.id";
-        PreparedStatement pstmt = connection.prepareStatement(query);
+        PreparedStatement pstmt = connection.prepareStatement( query );
         ResultSet rs = pstmt.executeQuery();
         while ( rs.next() ) {
             int id = rs.getInt( "id" );
@@ -107,5 +144,17 @@ public class EnergiaSolarDAO {
         }
         
         return resultado;
+    }
+    
+    public void eliminarDatos ( int i ) {
+        String query = "Call borrar_energia_solar(?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement( query );
+            ps.setInt( 1, i );
+            ps.executeUpdate();
+            ps.close();
+        } catch ( SQLException e ) {
+            throw new RuntimeException( e );
+        }
     }
 }
