@@ -8,11 +8,11 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="btnActualizar" layoutX="50.0" layoutY="320.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar">
+            <Button fx:id="btnActualizar" layoutX="361.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnBuscar" layoutX="50.0" layoutY="260.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Buscar">
+            <Button fx:id="btnBuscar" layoutX="206.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -20,21 +20,26 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnLimpiar" layoutX="50.0" layoutY="200.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Limpiar" textAlignment="CENTER">
+            <Button fx:id="btnLimpiar" layoutX="50.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Limpiar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnEliminar" layoutX="50.0" layoutY="380.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar">
+            <Button fx:id="btnEliminar" layoutX="206.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <TableView layoutX="206.0" layoutY="259.0" prefHeight="303.0" prefWidth="536.0">
+            <TableView fx:id="tblTabla" layoutX="50.0" layoutY="287.0" prefHeight="275.0" prefWidth="692.0">
               <columns>
-                <TableColumn prefWidth="101.80001831054688" text="C1" />
-                <TableColumn prefWidth="122.20001220703125" text="C2" />
-                  <TableColumn prefWidth="103.39999389648438" text="C3" />
-                  <TableColumn minWidth="1.20001220703125" prefWidth="96.5999755859375" text="C4" />
-                  <TableColumn minWidth="0.0" prefWidth="113.20001220703125" text="C5" />
+                <TableColumn fx:id="clId" prefWidth="50.0" text="Id" />
+                <TableColumn fx:id="clCodigo" prefWidth="66.00001525878906" text="Código" />
+                  <TableColumn fx:id="clUbicacion" prefWidth="63.5999755859375" text="Ubicación" />
+                  <TableColumn fx:id="clCapacidad" minWidth="1.20001220703125" prefWidth="71.60002136230469" text="Capacidad" />
+                  <TableColumn fx:id="clEficiencia" minWidth="0.0" prefWidth="74.79998779296875" text="Eficiencia %" />
+                  <TableColumn fx:id="clTipo" prefWidth="63.20001220703125" text="Tipo" />
+                  <TableColumn fx:id="clRadiacion" prefWidth="64.20001220703125" text="Radiación" />
+                  <TableColumn fx:id="clArea" prefWidth="65.0" text="Area km2" />
+                  <TableColumn fx:id="clAngulo" prefWidth="84.0" text="Angulo" />
+                  <TableColumn fx:id="clFecha" prefWidth="84.79998779296875" text="Fecha" />
               </columns>
             </TableView>
             <Separator layoutY="104.0" prefHeight="2.0" prefWidth="800.0" />
