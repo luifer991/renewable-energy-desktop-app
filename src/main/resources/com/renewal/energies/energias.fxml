@@ -8,23 +8,23 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="btnActualizar" layoutX="361.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar">
+            <Button fx:id="btnRecargar" layoutX="496.0" layoutY="142.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Recargar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnBuscar" layoutX="206.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Buscar">
+            <Button fx:id="btnBuscar" layoutX="341.0" layoutY="142.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnGuardar" layoutX="50.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Crear" textAlignment="CENTER">
+            <Button fx:id="btnGuardar" layoutX="185.0" layoutY="142.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Crear" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnLimpiar" layoutX="50.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Limpiar" textAlignment="CENTER">
+            <Button fx:id="btnLimpiar" layoutX="185.0" layoutY="203.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Limpiar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="btnEliminar" layoutX="206.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar">
+            <Button fx:id="btnEliminar" layoutX="341.0" layoutY="203.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -48,6 +48,11 @@
                   <Font size="45.0" />
                </font>
             </Label>
+            <Button fx:id="btnActualizar" layoutX="496.0" layoutY="203.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
