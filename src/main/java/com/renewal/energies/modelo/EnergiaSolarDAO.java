@@ -55,8 +55,8 @@ public class EnergiaSolarDAO {
     }
     
     public void actualizarDatos ( int id, BigDecimal radiacion, BigDecimal area,
-                                 BigDecimal angulo, String codigo, int tipo, String ubicacion, BigDecimal capacidad,
-                                  BigDecimal eficiencia, Date fecha  ) throws SQLException {
+                                  BigDecimal angulo, String codigo, int tipo, String ubicacion, BigDecimal capacidad,
+                                  BigDecimal eficiencia, Date fecha ) throws SQLException {
         
         String query = "CALL actualizar_energia_solar (?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement( query );
@@ -125,6 +125,39 @@ public class EnergiaSolarDAO {
         pstmt.close();
         return data;
     }
+    
+    public ResultadoBusqueda buscarDatos ( int i ) throws SQLException {
+        String query = "SELECT p.id, e.nombre AS codigo, p.ubicacion, p.capacidadinstalada, p.eficiencia, " +
+                "t.nombre AS tipoenergia, s.radiacionsolarpromedio AS radiacionsolar, " +
+                "s.areapaneles, s.anguloinclinacion, p.fechacreacion " +
+                "FROM plantaproduccion p " +
+                "JOIN energiasrenovables e ON e.id = p.id " +
+                "JOIN tipoenergia t ON t.id = e.tipoenergiaid " +
+                "JOIN energiasolar s ON s.id = e.id " +
+                "WHERE p.id = ?";
+        ResultadoBusqueda resultado = null;
+        try ( PreparedStatement pstmt = connection.prepareStatement( query ) ) {
+            pstmt.setInt( 1, i );
+            try ( ResultSet rs = pstmt.executeQuery() ) {
+                if ( rs.next() ) {
+                    resultado = new ResultadoBusqueda(
+                            rs.getInt( "id" ),
+                            rs.getString( "codigo" ),
+                            rs.getString( "ubicacion" ),
+                            rs.getBigDecimal( "capacidadinstalada" ),
+                            rs.getBigDecimal( "eficiencia" ),
+                            rs.getString( "tipoenergia" ),
+                            rs.getBigDecimal( "radiacionsolar" ),
+                            rs.getBigDecimal( "areapaneles" ),
+                            rs.getBigDecimal( "anguloinclinacion" ),
+                            rs.getDate( "fechacreacion" )
+                    );
+                }
+            }
+        }
+        return resultado;
+    }
+    
     
     // Método para obtener la información de la base de datos
     public Double obtenerInformacionDeBaseDeDatos () {
