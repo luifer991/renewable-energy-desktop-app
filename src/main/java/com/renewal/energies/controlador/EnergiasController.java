@@ -56,6 +56,8 @@ public class EnergiasController {
             }
         } );
         
+        btnBuscar.setOnAction( e -> mostrarDialogoBusqueda() );
+        
         setValueToCella();
         // Asignar el evento de clic al botón Guardar
         btnGuardar.setOnAction( e -> mostrarDialogoGuardar() );
@@ -322,4 +324,85 @@ public class EnergiasController {
         //asignar el icono al boton
         btn.setGraphic( setIcon );
     }
+    
+    // Metodo para mostrar el primer cuadro de diálogo de búsqueda de ID
+    private void mostrarDialogoBusqueda () {
+        // Crear el cuadro de diálogo para pedir el ID
+        TextInputDialog dialogoID = new TextInputDialog();
+        dialogoID.setTitle( "Buscar por ID" );
+        dialogoID.setHeaderText( "Ingrese el ID que desea buscar" );
+        dialogoID.setContentText( "ID:" );
+        
+        // Mostrar el cuadro y procesar el ID ingresado
+        dialogoID.showAndWait().ifPresent( idStr -> {
+            try {
+                int id = Integer.parseInt( idStr ); // Convertir el ID a entero
+                ResultadoBusqueda resultado = energiaSolarDAO.buscarDatos( id ); // Realizar la búsqueda
+                
+                if ( resultado != null ) {
+                    mostrarDialogoResultado( resultado ); // Mostrar los resultados si se encontró el ID
+                } else {
+                    mostrarMensajeError( "No se encontraron datos para el ID proporcionado." );
+                }
+            } catch ( NumberFormatException e ) {
+                mostrarMensajeError( "Por favor, ingrese un ID válido." );
+            } catch ( SQLException e ) {
+                mostrarMensajeError( "Error al buscar en la base de datos: " + e.getMessage() );
+            }
+        } );
+    }
+    
+    // Metodo para mostrar el segundo cuadro de diálogo con los resultados
+    private void mostrarDialogoResultado ( ResultadoBusqueda resultado ) {
+        Dialog <ButtonType> dialogoResultado = new Dialog <>();
+        dialogoResultado.setTitle( "Resultado de Búsqueda" );
+        dialogoResultado.setHeaderText( "Datos encontrados para el ID especificado:" );
+        
+        // Crear el contenido en un GridPane
+        GridPane grid = new GridPane();
+        grid.setHgap( 10 );
+        grid.setVgap( 10 );
+        
+        // Agregar etiquetas con los datos del resultado
+        grid.add( new Label( "Código:" ), 0, 0 );
+        grid.add( new Label( resultado.getCodigo() ), 1, 0 );
+        
+        grid.add( new Label( "Ubicación:" ), 0, 1 );
+        grid.add( new Label( resultado.getUbicacion() ), 1, 1 );
+        
+        grid.add( new Label( "Capacidad instalada:" ), 0, 2 );
+        grid.add( new Label( String.valueOf( resultado.getCapacidadinstalada() ) ), 1, 2 );
+        
+        grid.add( new Label( "Eficiencia:" ), 0, 3 );
+        grid.add( new Label( String.valueOf( resultado.getEficiencia() ) ), 1, 3 );
+        
+        grid.add( new Label( "Tipo de energía:" ), 0, 4 );
+        grid.add( new Label( resultado.getTipoenergia() ), 1, 4 );
+        
+        grid.add( new Label( "Radiación solar promedio:" ), 0, 5 );
+        grid.add( new Label( String.valueOf( resultado.getRadiacionsolar() ) ), 1, 5 );
+        
+        grid.add( new Label( "Área de paneles:" ), 0, 6 );
+        grid.add( new Label( String.valueOf( resultado.getAreapaneles() ) ), 1, 6 );
+        
+        grid.add( new Label( "Ángulo de inclinación:" ), 0, 7 );
+        grid.add( new Label( String.valueOf( resultado.getAnguloinclinacion() ) ), 1, 7 );
+        
+        grid.add( new Label( "Fecha de creación:" ), 0, 8 );
+        grid.add( new Label( String.valueOf( resultado.getFechacreacion() ) ), 1, 8 );
+        
+        dialogoResultado.getDialogPane().setContent( grid );
+        dialogoResultado.getDialogPane().getButtonTypes().add( ButtonType.OK );
+        dialogoResultado.showAndWait();
+    }
+    
+    // Método para mostrar un mensaje de error
+    private void mostrarMensajeError ( String mensaje ) {
+        Alert alerta = new Alert( Alert.AlertType.ERROR );
+        alerta.setTitle( "Error" );
+        alerta.setHeaderText( null );
+        alerta.setContentText( mensaje );
+        alerta.showAndWait();
+    }
+    
 }
