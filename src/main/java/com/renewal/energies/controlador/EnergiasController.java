@@ -108,10 +108,11 @@ public class EnergiasController {
         ButtonType btnEnergiasGeotermica = new ButtonType( "Energía Geotérmica", ButtonBar.ButtonData.OK_DONE );
         ButtonType btnEnergiasHidraulica = new ButtonType( "Energía Hidraulica", ButtonBar.ButtonData.OK_DONE );
         ButtonType btnBiomasa = new ButtonType( "Biomasa", ButtonBar.ButtonData.OK_DONE );
+        ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
         
         dialogo.getButtonTypes().setAll(
                 btnEnergiasSolar, btnEnergiasEolica,
-                btnEnergiasGeotermica, btnEnergiasHidraulica, btnBiomasa
+                btnEnergiasGeotermica, btnEnergiasHidraulica, btnBiomasa, btnCancelar
         );
         
         dialogo.showAndWait().ifPresent( response -> {
@@ -137,9 +138,21 @@ public class EnergiasController {
         dialogo.showAndWait().ifPresent( response -> {
             if ( response == ButtonType.OK ) {
                 // Si se presiona "Aceptar", abrir nueva ventana con el formulario
-                energiaSolarDAO.eliminarDatos( Integer.parseInt( txtId.getText() ) );
+                try {
+                    energiaSolarDAO.eliminarDatos( Integer.parseInt( txtId.getText() ) );
+                } catch ( SQLException e ) {
+                    throw new RuntimeException( e );
+                }
+                System.out.println("Datos eliminados con 'exito ");
             }
         } );
+    }
+    
+    public TextField crearTextFields ( String promptText ) {
+        TextField txt = new TextField();
+        txt.setPromptText( promptText );
+        
+        return txt;
     }
     
     public void actualizarDatosDialogo () {
@@ -149,36 +162,23 @@ public class EnergiasController {
         dialogo.setContentText( "Haz clic en el tipo de energía renovable el cual desees actualizar datos." );
         
         // Configurar TextFields
-        TextField txtId = new TextField();
-        txtId.setPromptText( "ID" );
-        TextField txtCapacidad = new TextField();
-        txtCapacidad.setPromptText( "capacidadinstalada" );
-        TextField txtEficiencia = new TextField();
-        txtEficiencia.setPromptText( "eficiencia" );
-        TextField txtRadiacion = new TextField();
-        txtRadiacion.setPromptText( "radiacion" );
-        TextField txtArea = new TextField();
-        txtArea.setPromptText( "area" );
-        TextField txtAngulo = new TextField();
-        txtAngulo.setPromptText( "angulo" );
-        TextField txtCodigo = new TextField();
-        txtCodigo.setPromptText( "codigo" );
-        TextField txtTipo = new TextField();
-        txtTipo.setPromptText( "tipoenergia" );
-        TextField txtUbicacion = new TextField();
-        txtUbicacion.setPromptText( "ubicacion" );
+        var txtId = crearTextFields( "ID" );
+        TextField txtCapacidad = crearTextFields( "capacidadIntalada" );
+        TextField txtEficiencia = crearTextFields( "eficiencia" );
+        TextField txtRadiacion = crearTextFields( "Radiacion" );
+        TextField txtArea = crearTextFields( "area" );
+        TextField txtAngulo = crearTextFields( "angulo" );
+        TextField txtCodigo = crearTextFields( "Codigo" );
+        int tipo = 5;
+        //TextField txtTipo = crearTextFields( "tipo" );
+        TextField txtUbicacion = crearTextFields( "ubicacion" );
         DatePicker txtFecha = new DatePicker();
         txtFecha.setPromptText( "fechacreacion" );
-        TextField txtPais = new TextField();
-        txtPais.setPromptText( "pais" );
-        TextField txtEnergia = new TextField();
-        txtEnergia.setPromptText( "energia" );
-        TextField txtCovertura = new TextField();
-        txtCovertura.setPromptText( "covertura" );
-        TextField txtPoblacion = new TextField();
-        txtPoblacion.setPromptText( "poblacion" );
-        TextField txtPlantaProduccionId = new TextField();
-        txtPlantaProduccionId.setPromptText( "plantaProduccionId" );
+        TextField txtPais = crearTextFields( "pais" );
+        TextField txtEnergia = crearTextFields( "cant. energia" );
+        TextField txtCovertura = crearTextFields( "covertura" );
+        TextField txtPoblacion = crearTextFields( "poblacion" );
+//        TextField txtPlantaProduccionId = crearTextFields( "plantaProduccionID" );
         
         GridPane gridPane = new GridPane();
         gridPane.add( txtId, 0, 0 );
@@ -188,14 +188,14 @@ public class EnergiasController {
         gridPane.add( txtArea, 0, 4 );
         gridPane.add( txtAngulo, 0, 5 );
         gridPane.add( txtCodigo, 0, 6 );
-        gridPane.add( txtTipo, 0, 7 );
+//        gridPane.add( txtTipo, 0, 7 );
         gridPane.add( txtUbicacion, 0, 8 );
         gridPane.add( txtFecha, 0, 9 );
         gridPane.add( txtPais, 0, 10 );
         gridPane.add( txtEnergia, 0, 11 );
         gridPane.add( txtCovertura, 0, 12 );
         gridPane.add( txtPoblacion, 0, 13 );
-        gridPane.add( txtPlantaProduccionId, 0, 14 );
+//        gridPane.add( txtPlantaProduccionId, 0, 14 );
         
         gridPane.setHgap( 0 );
         gridPane.setVgap( 10 );
@@ -231,18 +231,17 @@ public class EnergiasController {
                             BigDecimal.valueOf( Double.parseDouble( txtCovertura.getText() ) ) : BigDecimal.ZERO;
                     BigDecimal poblacion = ! txtPoblacion.getText().isEmpty() ?
                             BigDecimal.valueOf( Double.parseDouble( txtPoblacion.getText() ) ) : BigDecimal.ZERO;
-                    int tipo = ! txtTipo.getText().isEmpty() ?
-                            Integer.parseInt( txtTipo.getText() ) : 5;
+//                    int tipo = ! txtTipo.getText().isEmpty() ?
+//                            Integer.parseInt( txtTipo.getText() ) : 5;
                     String ubicacion = txtUbicacion.getText().isEmpty() ?
                             null : txtUbicacion.getText();
                     Date fecha = obtenerFechaSql( txtFecha );
-                    int plantaProduccionId = ! txtPlantaProduccionId.getText().isEmpty() ?
-                            Integer.parseInt( txtPlantaProduccionId.getText() ) : 0;
-                    // Llamada al método para actualizar los datos
+//                    int plantaProduccionId = ! txtPlantaProduccionId.getText().isEmpty() ?
+//                            Integer.parseInt( txtPlantaProduccionId.getText() ) : 0;
+                    // Llamada al metodo para actualizar los datos
                     energiaSolarDAO.actualizarDatos( id, radiacion, area,
-                            angulo, codigo, tipo, ubicacion, capacidad, eficiencia, fecha );
-                    energiaSolarDAO.actualizarPais( id, pais, energia, covertura,
-                            poblacion, plantaProduccionId );
+                            angulo, codigo, tipo, ubicacion, capacidad, eficiencia, fecha, pais, energia, covertura,
+                            poblacion );
                     
                 } catch ( NumberFormatException e ) {
                     mostrarError( "Error en los datos", "Por favor, ingresa valores válidos en los campos numéricos." );
@@ -257,7 +256,7 @@ public class EnergiasController {
     // Formato deseado para la fecha
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
     
-    // Método para extraer la fecha en formato yyyy-MM-dd y convertirla a java.sql.Date
+    // Metodo para extraer la fecha en formato yyyy-MM-dd y convertirla a java.sql.Date
     public Date obtenerFechaSql ( DatePicker fecha ) {
         LocalDate localDate = fecha.getValue();
         
@@ -307,8 +306,9 @@ public class EnergiasController {
         icono( "/guardar.png", btnGuardar );
         icono( "/buscar.png", btnBuscar );
         icono( "/limpiar.png", btnLimpiar );
-        icono( "/actualizar.png", btnRecargar );
+        icono( "/actualizar.png", btnActualizar );
         icono( "/eliminar.png", btnEliminar );
+        icono( "/recargar.png", btnRecargar );
     }
     
     public void icono ( String icon, Button btn ) {
