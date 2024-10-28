@@ -21,8 +21,9 @@ public class EnergiaSolarDAO {
     
     public void guardarDatos ( BigDecimal rad, BigDecimal area, BigDecimal inc,
                                String cod, int tipoEnergia, String ubi,
-                               BigDecimal cap, BigDecimal eficiencia, Date fecha ) throws SQLException {
-        String query = "CALL insertar_energia_solar (?,?,?,?,?,?,?,?,?)";
+                               BigDecimal cap, BigDecimal eficiencia, Date fecha, String nombrePais,
+                               BigDecimal energia, BigDecimal nivel, BigDecimal poblacion ) throws SQLException {
+        String query = "CALL insertar_energia_solar (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement( query );
         ps.setBigDecimal( 1, rad );
         ps.setBigDecimal( 2, area );
@@ -33,6 +34,10 @@ public class EnergiaSolarDAO {
         ps.setBigDecimal( 7, cap );
         ps.setBigDecimal( 8, eficiencia );
         ps.setDate( 9, fecha );
+        ps.setString(10, nombrePais);
+        ps.setBigDecimal(11, energia);
+        ps.setBigDecimal(12, nivel);
+        ps.setBigDecimal(13, poblacion);
         
         ps.executeUpdate();
         ps.close();
@@ -56,9 +61,10 @@ public class EnergiaSolarDAO {
     
     public void actualizarDatos ( int id, BigDecimal radiacion, BigDecimal area,
                                   BigDecimal angulo, String codigo, int tipo, String ubicacion, BigDecimal capacidad,
-                                  BigDecimal eficiencia, Date fecha ) throws SQLException {
+                                  BigDecimal eficiencia, Date fecha, String nombrePais,
+                                  BigDecimal energia, BigDecimal nivel, BigDecimal poblacion ) throws SQLException {
         
-        String query = "CALL actualizar_energia_solar (?,?,?,?,?,?,?,?,?,?)";
+        String query = "CALL actualizar_energia_solar (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement( query );
         ps.setInt( 1, id );
         ps.setBigDecimal( 2, radiacion );
@@ -70,6 +76,10 @@ public class EnergiaSolarDAO {
         ps.setBigDecimal( 8, capacidad );
         ps.setBigDecimal( 9, eficiencia );
         ps.setDate( 10, fecha );
+        ps.setString(11, nombrePais);
+        ps.setBigDecimal(12, energia);
+        ps.setBigDecimal(13, nivel);
+        ps.setBigDecimal(14, poblacion);
         
         ps.executeUpdate();
         ps.close();
@@ -179,15 +189,11 @@ public class EnergiaSolarDAO {
         return resultado;
     }
     
-    public void eliminarDatos ( int i ) {
+    public void eliminarDatos ( int i ) throws SQLException {
         String query = "Call borrar_energia_solar(?)";
-        try {
             PreparedStatement ps = connection.prepareStatement( query );
             ps.setInt( 1, i );
-            ps.executeUpdate();
+            ps.executeQuery();
             ps.close();
-        } catch ( SQLException e ) {
-            throw new RuntimeException( e );
-        }
     }
 }
