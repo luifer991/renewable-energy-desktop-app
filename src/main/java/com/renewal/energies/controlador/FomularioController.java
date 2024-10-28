@@ -17,8 +17,7 @@ public class FomularioController {
     private TextField txtRadiacion, txtAreaPaneles, txtInclinacion,
             txtCodigo, txtUbicacion, txtCapacidadInstalada,
             txtEficiencia, txtPais,
-            txtEnergiaRequerida, txtCovertura, txtPoblacion,
-            txtTipoEnergia, txtPlantaProducionId;
+            txtEnergiaRequerida, txtCovertura, txtPoblacion;
     @FXML
     private DatePicker txtFechaCreacion;
     @FXML
@@ -33,6 +32,12 @@ public class FomularioController {
         energiaSolarDAO = new EnergiaSolarDAO();
         btnGuardar.setOnAction( t -> extraerDatos() );
         // cargarAreaPaneles();
+        // Configurar el evento de clic en el botón "Cancelar"
+        btnCancelar.setOnAction( e -> cancelar() );
+    }
+    
+    private void cancelar () {
+        btnCancelar.getScene().getWindow().hide(); // Cierra la ventana actual
     }
     
     // Método para cargar el área de paneles y mostrarla en el TextField
@@ -56,8 +61,7 @@ public class FomularioController {
             BigDecimal energia = BigDecimal.valueOf( Double.parseDouble( txtEnergiaRequerida.getText() ) );
             BigDecimal covertura = BigDecimal.valueOf( Double.parseDouble( txtCovertura.getText() ) );
             BigDecimal poblacion = BigDecimal.valueOf( Double.parseDouble( txtPoblacion.getText() ) );
-            int tipoEnergia = Integer.parseInt( txtTipoEnergia.getText() );
-            int plantaProduccionId = Integer.parseInt( txtPlantaProducionId.getText() );
+            int tipoEnergia = 5;
             System.out.println( "Radiación: " + rad +
                     " Area de los Paneles (km2): " + area
                     + " Inclinacion (°): " + inc +
@@ -69,11 +73,11 @@ public class FomularioController {
                     " Energia Requerida (kWh): " + energia +
                     " Covertura: " + covertura +
                     " Poblacion: " + poblacion +
-                    " Tipo de Energia: " + tipoEnergia +
-                    " Planta de Produccion ID: " + plantaProduccionId );
+                    " Tipo de Energia: " + tipoEnergia );
             mostrarMensaje( "Exito", "Datos extraidos correctamente" );
-            energiaSolarDAO.guardarDatos( rad, area, inc, cod, tipoEnergia, ubi, cap, eficiencia, fecha );
-            energiaSolarDAO.guardarPais( pais, energia, covertura, poblacion, plantaProduccionId );
+            
+            energiaSolarDAO.guardarDatos( rad, area, inc, cod, tipoEnergia, ubi, cap, eficiencia,
+                    fecha, pais, energia, covertura, poblacion );
             limpiarCampos();
         } catch ( DateTimeParseException e ) {
             mostrarError( "Error", "El formato de fecha es incorrecto. Utiliza el formato 'yyyy-MM-dd'." );
@@ -125,13 +129,11 @@ public class FomularioController {
         txtUbicacion.clear();
         txtCapacidadInstalada.clear();
         txtEficiencia.clear();
-        
+        txtFechaCreacion.setValue( null );
         txtPais.clear();
         txtEnergiaRequerida.clear();
         txtCovertura.clear();
         txtPoblacion.clear();
-        txtTipoEnergia.clear();
-        txtPlantaProducionId.clear();
     }
     
     private void mostrarMensaje ( String titulo, String mensaje ) {
