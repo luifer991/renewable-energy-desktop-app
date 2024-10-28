@@ -6,7 +6,6 @@
 <?import javafx.scene.text.*?>
 
 <Pane fx:id="pnPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.renewal.energies.controlador.FomularioController">
-   <VBox layoutX="-93.0" layoutY="38.0" prefHeight="200.0" prefWidth="100.0" />
    <TextField fx:id="txtRadiacion" layoutX="180.0" layoutY="120.0" prefHeight="20.0" />
    <TextField fx:id="txtAreaPaneles" layoutX="180.0" layoutY="160.0" />
    <TextField fx:id="txtInclinacion" layoutX="180.0" layoutY="200.0" />
@@ -22,20 +21,16 @@
    <Label layoutX="370.0" layoutY="200.0" text="Fecha de Creación" />
    <Label layoutX="370.0" layoutY="240.0" text="País" />
    <Label layoutX="370.0" layoutY="280.0" text="Energia Requerida" />
-   <Label layoutX="370.0" layoutY="320.0" text="Covertura" />
-   <Label layoutX="370.0" layoutY="360.0" text="Población" />
+   <Label layoutX="80.0" layoutY="320.0" text="Covertura" />
+   <Label layoutX="370.0" layoutY="320.0" text="Población" />
    <TextField fx:id="txtCodigo" layoutX="180.0" layoutY="240.0" />
    <TextField fx:id="txtUbicacion" layoutX="180.0" layoutY="280.0" />
    <TextField fx:id="txtCapacidadInstalada" layoutX="500.0" layoutY="120.0" />
    <TextField fx:id="txtEficiencia" layoutX="500.0" layoutY="160.0" />
    <TextField fx:id="txtPais" layoutX="500.0" layoutY="240.0" />
    <TextField fx:id="txtEnergiaRequerida" layoutX="500.0" layoutY="280.0" />
-   <TextField fx:id="txtCovertura" layoutX="500.0" layoutY="320.0" />
-   <TextField fx:id="txtPoblacion" layoutX="500.0" layoutY="360.0" />
-   <Label layoutX="80.0" layoutY="320.0" text="Tipo Energía" />
-   <TextField fx:id="txtTipoEnergia" layoutX="180.0" layoutY="320.0" />
-   <Label layoutX="80.0" layoutY="360.0" text="Planta Id" />
-   <TextField fx:id="txtPlantaProducionId" layoutX="180.0" layoutY="360.0" />
+   <TextField fx:id="txtCovertura" layoutX="180.0" layoutY="320.0" />
+   <TextField fx:id="txtPoblacion" layoutX="500.0" layoutY="320.0" />
    <Button fx:id="btnGuardar" layoutX="220.0" layoutY="450.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Guardar" />
    <Button fx:id="btnCancelar" layoutX="450.0" layoutY="450.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Cancelar" />
    <Label layoutX="280.0" layoutY="30.0" text="Energía Solar" textAlignment="CENTER">
